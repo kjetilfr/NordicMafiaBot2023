@@ -1,4 +1,4 @@
-# NordicMafiaBotLite
+# NordicMafia Bot 2023
 Enkel NordicMafia Bot! For å få tak i den avanserte versjonen med ALT du trenger (inkludert captcha solver) trykk sponsor oppe til høgre
 
 Botten utfører:
