@@ -125,29 +125,22 @@ def checkCountdown():
 
 
 def sendCar():
-    currentCity = getCity()
-    selectValue = random.randint(0, 5)
-    time.sleep(sleepRandomLow())
-    driver.find_element(By.XPATH, "//tr[@style='background-color: #ff4c4c;']").click()
-    time.sleep(sleepRandomLow()/2)
-    select = Select(driver.find_element(By.NAME, "targetcity"))
-    time.sleep(sleepRandomLow())
-    time.sleep(sleepRandomLow()/2)
-    select.select_by_value(str(selectValue))
-    time.sleep(sleepRandomLow()/2)
-    targetCity = select.first_selected_option.text
-    print("'" + currentCity + "'" + " " + "'" + targetCity + "'")
-    if targetCity == currentCity:  # if trying to send to current city restart function
-        print("RETRYING TO SEND CAR!")
-        driver.refresh()
-        sendCar()
-    else:
-        print("ACTUALLY SENDING CAR!")
-        # actually send car
-        time.sleep(sleepRandomLow())
-        driver.find_element(By.NAME, "dotransport").click()
-        time.sleep(sleepRandomLow())
-        driver.find_element(By.NAME, "doTransport_confirm").click()
+    try:
+        elems = driver.find_elements(By.CSS_SELECTOR, "table.def_table.cursor>tbody>tr")
+        carElems = []
+        for i in elems:
+            if not i.get_attribute("name") == "hlrow_table_select_gtaaction":
+                carElems.append(i)
+
+        for c in carElems:
+            if c.get_attribute("style") == "background-color: #ff4c4c;" or c.get_attribute("style") == "background-color: rgb(255, 76, 76);":
+                clickElem = c.find_element(By.CSS_SELECTOR, "td")
+                clickElem.click()
+                driver.find_element(By.NAME, "doSell").click()
+            else:
+                pass
+    except:
+        print("Cant sell cars")
 
 
 def biltyveri():
@@ -205,9 +198,15 @@ def doBotStuff():
 
 
 login()
+time.sleep(1)
 krim()
+time.sleep(1)
 fightclub()
+time.sleep(1)
 utpress()
+time.sleep(1)
 biltyveri()
+time.sleep(1)
 fengsel()
+time.sleep(1)
 doBotStuff()
