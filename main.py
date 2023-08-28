@@ -37,14 +37,17 @@ def sleepRandomLow():
 
 
 def getCity():
-    whereIsPlayer = driver.find_elements(By.CLASS_NAME, "value")
-    # print(whereIsPlayer)
-    # for x in whereIsPlayer:
-    # print(x.get_attribute("outerHTML"))
-    fullWhere = whereIsPlayer[1].get_attribute("outerHTML")
-    city = fullWhere[20:]
-    city = city[:-7]
-    return city
+    try:
+        whereIsPlayer = driver.find_elements(By.CLASS_NAME, "value")
+        # print(whereIsPlayer)
+        # for x in whereIsPlayer:
+        # print(x.get_attribute("outerHTML"))
+        fullWhere = whereIsPlayer[1].get_attribute("outerHTML")
+        city = fullWhere[20:]
+        city = city[:-7]
+        return city
+    except:
+        print("Can't get city")
 
 
 def login():
@@ -76,52 +79,64 @@ def login():
 
 
 def krim():
-    driver.find_element(By.LINK_TEXT, "Kriminalitet").click()
-    # checkAntiBot() UPGRADE TO GET THIS FEATURE
-    isCounting = checkCountdown()
-    if isCounting == False:
-        # KRIMINALITET START
-        time.sleep(1)
-        driver.find_element(By.ID, "rowid_table_select_krimaction4").click()
-        # KRIMINALITET END
-    else:
-        print("Krim timer is going")
+    try:
+        driver.find_element(By.LINK_TEXT, "Kriminalitet").click()
+        # checkAntiBot() UPGRADE TO GET THIS FEATURE
+        isCounting = checkCountdown()
+        if isCounting == False:
+            # KRIMINALITET START
+            time.sleep(1)
+            driver.find_element(By.ID, "rowid_table_select_krimaction4").click()
+            # KRIMINALITET END
+        else:
+            print("Krim timer is going")
+    except:
+        print("Can't krim")
 
 
 def utpress():
-    driver.find_element(By.LINK_TEXT, "Utpressing").click()
-    # checkAntiBot() UPGRADE TO GET THIS FEATURE
-    isCounting = checkCountdown()
-    if isCounting == False:
-        # UTPRESSING START
-        time.sleep(sleepRandomLow())
-        driver.find_element(By.ID, "sel_1").click()
-        time.sleep(sleepRandomLow())
-        driver.find_element(By.NAME, "submitBlackmail").click()
-        # UTPRESSING END
-    else:
-        print("Utpress timer is going")
+    try:
+        driver.find_element(By.LINK_TEXT, "Utpressing").click()
+        # checkAntiBot() UPGRADE TO GET THIS FEATURE
+        isCounting = checkCountdown()
+        if isCounting == False:
+            # UTPRESSING START
+            time.sleep(sleepRandomLow())
+            driver.find_element(By.ID, "sel_1").click()
+            time.sleep(sleepRandomLow())
+            driver.find_element(By.NAME, "submitBlackmail").click()
+            # UTPRESSING END
+        else:
+            print("Utpress timer is going")
+    except:
+        print("Can't get city")
 
 
 def fightclub():
-    driver.find_element(By.LINK_TEXT, "Fightclub").click()
-    # checkAntiBot() UPGRADE TO GET THIS FEATURE
-    isCounting = checkCountdown()
-    if isCounting == False:
-        # FIGHTCLUB START
-        time.sleep(sleepRandomLow())
-        driver.find_element(By.XPATH, "//td[text()='25 pushups']").click()
-        # FIGHTCLUB END
-    else:
-        print("Fightclub timer is going")
+    try:
+        driver.find_element(By.LINK_TEXT, "Fightclub").click()
+        # checkAntiBot() UPGRADE TO GET THIS FEATURE
+        isCounting = checkCountdown()
+        if isCounting == False:
+            # FIGHTCLUB START
+            time.sleep(sleepRandomLow())
+            driver.find_element(By.XPATH, "//td[text()='25 pushups']").click()
+            # FIGHTCLUB END
+        else:
+            print("Fightclub timer is going")
+    except:
+        print("Can't get fc")
 
 
 def checkCountdown():
-    isCountingDown = driver.find_elements(By.ID, "js_countdown")
-    if len(isCountingDown) > 0:
-        return True
-    else:
-        return False
+    try:
+        isCountingDown = driver.find_elements(By.ID, "js_countdown")
+        if len(isCountingDown) > 0:
+            return True
+        else:
+            return False
+    except:
+        print("Can't checkCountdown")
 
 
 def sendCar():
@@ -144,38 +159,44 @@ def sendCar():
 
 
 def biltyveri():
-    # BILTYVERI START
-    driver.find_element(By.LINK_TEXT, "Biltyveri/Garasje").click()
-    # checkAntiBot() UPGRADE TO GET THIS FEATURE
-    isCounting = checkCountdown()
-    if isCounting == False:
-        time.sleep(sleepRandomLow() / 2)
-        driver.find_element(By.ID, "rowid_table_select_gtaaction0").click()
-        biltyveriSuccess = driver.find_elements(By.CLASS_NAME, "successBox")
-        if len(biltyveriSuccess) > 0:
+    try:
+        # BILTYVERI START
+        driver.find_element(By.LINK_TEXT, "Biltyveri/Garasje").click()
+        # checkAntiBot() UPGRADE TO GET THIS FEATURE
+        isCounting = checkCountdown()
+        if isCounting == False:
+            time.sleep(sleepRandomLow() / 2)
+            driver.find_element(By.ID, "rowid_table_select_gtaaction0").click()
+            biltyveriSuccess = driver.find_elements(By.CLASS_NAME, "successBox")
+            if len(biltyveriSuccess) > 0:
+                time.sleep(sleepRandomLow())
+                sendCar()
+        else:
             time.sleep(sleepRandomLow())
-            sendCar()
-    else:
-        time.sleep(sleepRandomLow())
-        print("Car timer is going")
+            print("Car timer is going")
+    except:
+        print("Cant get biltyveri")
 
 
 def fengsel():
-    driver.find_element(By.LINK_TEXT, "Fengsel").click()
-    # checkAntiBot() UPGRADE TO GET THIS FEATURE
-    isCounting = checkCountdown()
-    if isCounting == False:
-        # FENGSEL START
-        time.sleep(sleepRandomLow() / 2)
-        if len(driver.find_elements(By.LINK_TEXT, "Bryt ut")) > 0:
-            driver.find_element(By.LINK_TEXT, "Bryt ut").click()
+    try:
+        driver.find_element(By.LINK_TEXT, "Fengsel").click()
+        # checkAntiBot() UPGRADE TO GET THIS FEATURE
+        isCounting = checkCountdown()
+        if isCounting == False:
+            # FENGSEL START
+            time.sleep(sleepRandomLow() / 2)
+            if len(driver.find_elements(By.LINK_TEXT, "Bryt ut")) > 0:
+                driver.find_element(By.LINK_TEXT, "Bryt ut").click()
+            else:
+                time.sleep(random.randint(30, 69))
+            # FENGSEL END
+            time.sleep(3)
+            fengsel()
         else:
-            time.sleep(random.randint(30, 69))
-        # FENGSEL END
-        time.sleep(3)
-        fengsel()
-    else:
-        print("Fengsel timer is going")
+            print("Fengsel timer is going")
+    except:
+        print("Cant get fengsel")
 
 
 def timeDown():
@@ -198,15 +219,15 @@ def doBotStuff():
 
 
 login()
-time.sleep(1)
+time.sleep(4)
 krim()
-time.sleep(1)
+time.sleep(4)
 fightclub()
-time.sleep(1)
+time.sleep(4)
 utpress()
-time.sleep(1)
+time.sleep(4)
 biltyveri()
-time.sleep(1)
+time.sleep(4)
 fengsel()
-time.sleep(1)
+time.sleep(4)
 doBotStuff()
